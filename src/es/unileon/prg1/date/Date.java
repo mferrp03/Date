@@ -173,12 +173,48 @@ public class Date {
  	 StringBuilder months = new StringBuilder();
 
  	for(int i=this.month+1;i<=12;i++){
+		Date monthsLeftDate = new Date(this.day,i,this.year);
 
-    		months.append(this.getMonthName()); }
+    		months.append(monthsLeftDate.getMonthName() + "\t"); }
 
  	return months.toString();
 
 }
+	public String daysOfTheMonthLeft(){
+	StringBuilder daysLeft = new StringBuilder();
+	for(int i=this.day; i<=31;i++){
+	Date daysLeftDate = new Date(i,this.month,this.year);
+
+       		if(daysLeftDate.isDayOfMonthRight()==true){
+
+        		daysLeft.append(daysLeftDate +"\t");
+		
+		}
+	}
+	
+	return daysLeft.toString();
+}
+	public String monthsWithSameDays(){
+	int i =31;
+	StringBuilder sameSizeMonths = new StringBuilder();
+	Date sameSizeMonthsDate = new Date(i,this.month,this.year);
+	for(i = 31;(sameSizeMonthsDate.isDayOfMonthRight())==true;i--){
+	Date sameSizeMonthsDate = new Date(i,this.month,this.year);
+		if(sameSizeMonthsDate.isDayOfMonthRight()==true){
+			for(int j = 1;j<=12;j++){
+				Date sameSizeMonthDate = new Date(i,j,this.year);
+				Date sameSizeControl = new Date(i+1,j,this.year);
+				if(sameSizeMonthDate.isDayOfMonthRight()==true){
+					if(sameSizeControl.isDayOfMonthRight()==false)
+						sameSizeMonths.append(sameSizeMonthDate.getMonthName() + "\t");
+					}
+			}
+		}
+	}
+	return sameSizeMonths.toString();
+}
+				
+			
 	public String toString(){
 		return this.day + "/" + this.month + "/" + this.year;
 	}
